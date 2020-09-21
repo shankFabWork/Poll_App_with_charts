@@ -1,0 +1,151 @@
+{% extends '../base.html' %}
+{% load static  %}
+{% load crispy_forms_tags  %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/questionShow.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="row row-cols-1 row-cols-md-3">
+
+
+
+    {% for i in arr %}
+
+        <div class="col mb-4">
+              <div class="card h-100">
+                <!--Card image-->
+                <div class="view overlay">
+                  <img class="card-img-top" src="{{i.user.profile.front.url}}" alt="Card image cap"
+                    style="width:500px;height:500px;">
+
+
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+
+                <!--Card content-->
+                <div class="card-body">
+
+                  <!--Title-->
+                  <p class="card-text">
+                  <h6 style="color:chocolate ;">
+                    Question asked by {{i.user.username}}
+                  </h6>
+                  <h6 style="color: blueviolet;">
+                    Question asked at {{i.pub_date}}
+                  </h6>
+                  <h3>
+                    Question) {{i.ques_text}} ?
+                  </h3>
+
+                  <form action="{% url 'questions_show' %}" method='POST'>
+
+                    <div class="custom-control custom-checkbox">
+
+                      <h5>{{i.choice1_text}} -- {{i.choice1_vote}}</h5>
+
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+
+                      <h5>{{i.choice2_text}} -- {{i.choice2_vote}}</h5>
+
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+
+                      <h5>{{i.choice3_text}} -- {{i.choice3_vote}}</h5>
+
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+
+                      <h5>{{i.choice4_text}} -- {{i.choice4_vote}}</h5>
+
+                    </div>
+
+
+                  </form>
+
+                  </p>
+
+
+                  <canvas id="myChart{{i.id}}" width="1000 " height="800" aria-label="chart" role="img"></canvas>
+
+                </div>
+
+                
+
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
+                  <script>
+
+                          chx=document.getElementById("myChart{{i.id}}").getContext('2d')
+                          myChart = new Chart(chx, {
+                            type: 'horizontalBar',
+
+                            data: {
+                              labels: [ 
+                                    "{{i.choice1_text}}",  
+                                    "{{i.choice2_text}}",
+                                    "{{i.choice3_text}}",
+                                    "{{i.choice4_text}}"
+                                  ],
+                              datasets: [{
+                                label:"{{i.ques_text}} ?",
+                                data: [ 
+                                        {{i.choice1_vote}},  
+                                        {{i.choice2_vote}},
+                                        {{i.choice3_vote}},
+                                        {{i.choice4_vote}}
+                                      ],
+                              backgroundColor: [
+                                  'Red', 'Blue', 'Yellow', 'Green'
+                            ],
+                            borderColor:"violet",
+                            borderWidth: 5,
+                          }],
+                        },
+                          options:
+                          {
+                            responsive: true,
+                              layout: {
+                              padding: {
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0
+                              },
+                            },
+                            scales:{
+                              xAxes:[{
+                                stacked:true
+                              }]
+                            },
+                            tooltips: {
+                              // enabled:false,
+                                enabled: true,
+                                backgroundColor: "orange"
+                            }
+                          }
+                    })
+                </script>
+
+
+
+
+              </div>
+        </div>
+
+    {% endfor %}
+
+
+  </div>
+
+<!--Grid row-->
+{% endblock %}

@@ -1,0 +1,113 @@
+<!--Navbar -->
+
+
+{% url 'home' as home %}
+{% url 'login' as login %}
+{% url 'register' as register %}
+{% url 'update' as update %}
+
+{% url 'profile' as profile %}
+{% url 'logout' as logout %}
+
+{% url 'profile' as profile %}
+{% url 'update_question' as update_question %}
+{% url 'create_question' as create_question %}
+{% url 'questions_show' as questions_show %}
+{% url 'search_question' as search_question %}
+{% url 'global_question' as global_question %}
+{% url 'each_question' as each_question %}
+{% url 'votes_show' as votes_show %}
+{% url 'global_votes_show' as global_votes_show %}
+{% url 'global_question_show' as global_question_show %}
+
+
+
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
+  <a class="navbar-brand" href="#">
+    <i class="fab fa-asymmetrik fa-3x"></i>
+    &nbsp;&nbsp;&nbsp;
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+    aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav mr-auto">
+
+      {% if user.is_superuser %}
+      <li class="nav-item {% if request.path == global_question %} active {% endif %}">
+        <a class="nav-link" href="{% url 'global_question' %}">All Users
+        </a>
+      </li>
+      {% else %}
+      {% endif %}
+            
+      <li class="nav-item {% if request.path == home %} active {% endif %}">
+        <a class="nav-link" href="{% url 'home' %}">Home
+        </a>
+      </li>
+
+      <li class="nav-item {% if request.path == create_question %} active {% endif %}">
+        <a class="nav-link" href="{% url 'create_question' %}">Create question
+        </a>
+      </li>
+      
+      <li class="nav-item {% if request.path == profile %} active {% endif %}">
+        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+      </li>
+
+      <li class="nav-item {% if request.path == logout %} active {% endif %}">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+
+      <li class="nav-item {% if request.path == update %} active {% endif %}">
+        <a class="nav-link" href="{% url 'update' %}">Update</a>
+      </li>
+
+      <li class="nav-item {% if request.path == questions_show %} active {% endif %}">
+        <a class="nav-link" href="{% url 'questions_show' %}">Your question</a>
+      </li>
+
+      <li class="nav-item {% if request.path == search_question %} active {% endif %}">
+        <a class="nav-link" href="{% url 'search_question' %}">Search question</a>
+      </li>
+
+      <li class="nav-item {% if request.path == global_votes_show %} active {% endif %}">
+        <a class="nav-link" href="{% url 'global_votes_show' %}">Votes Result</a>
+      </li>
+
+      <li class="nav-item {% if request.path == global_question_show %} active {% endif %}">
+        <a class="nav-link" href="{% url 'global_question_show' %}">Votes Question</a>
+      </li>
+
+
+    </ul>
+    
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+    
+
+  {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link">Welcome {{user.username}}</a>
+      </li>
+      <li class="nav-item">
+        <img style='border-radius: 50%;width: 50px;height: 50px;' src='{{user.profile.front.url}}' />
+      </li>
+      
+  {% else %}
+      <li class="nav-item">
+        <a class="nav-link" style="text-transform: uppercase" href="{% url 'register' %}">Register</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" style="text-transform: uppercase" href="{% url 'login' %}">Login</a>
+      </li>
+  {% endif %}
+
+    
+    </ul>
+
+  </div>
+</nav>
+<!--/.Navbar -->

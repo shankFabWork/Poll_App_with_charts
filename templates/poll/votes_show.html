@@ -1,0 +1,97 @@
+{% extends '../base.html' %}
+{% load static  %}
+{% load crispy_forms_tags  %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/questionShow.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!--Grid row-->
+
+<div class="row row-cols-1 row-cols-md-3">
+
+          {% for i in arr %}  
+  
+            <div class="col mb-4">
+              <div class="card h-100">
+                <!--Card image-->
+                <div class="view overlay">
+                  <img class="card-img-top" src="{{i.user.profile.front.url}}"
+                    alt="Card image cap">
+                    
+            
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+          
+                <!--Card content-->
+                <div class="card-body">
+          
+                  <!--Title-->
+                  <p class="card-text">
+                    <h6 style="color:chocolate ;">
+                      Question asked by {{i.user.username}}
+                    </h6>
+                    <h6 style="color: blueviolet;">
+                      Question asked at {{i.pub_date}}
+                    </h6>
+                    <h3>
+                      Question) {{i.ques_text}}
+                    </h3>
+                    
+              <form action="{% url 'questions_show' %}" method='POST'>
+                    
+                      <div class="custom-control custom-checkbox">
+                      
+                          <h5>{{i.choice1_text}} -- {{i.choice1_vote}}</h5>
+                      
+                      </div>
+                      
+                      <div class="custom-control custom-checkbox">
+                      
+                          <h5>{{i.choice2_text}} -- {{i.choice2_vote}}</h5>
+                      
+                      </div>
+                      
+                      <div class="custom-control custom-checkbox">
+                      
+                          <h5>{{i.choice3_text}} -- {{i.choice3_vote}}</h5>
+                      
+                      </div>
+                      
+                      <div class="custom-control custom-checkbox">
+                      
+                          <h5>{{i.choice4_text}} -- {{i.choice4_vote}}</h5>
+                      
+                      </div>
+                      
+                      
+                    </form>
+
+                  </p>
+
+                </div>
+                
+                
+                  </div>
+               </div>
+          
+               
+                  
+  
+                  
+                  {% endfor %}
+
+                  
+        </div>
+
+      
+
+
+
+  <!--Grid row-->    
+{% endblock %}
+    

@@ -1,0 +1,93 @@
+{% extends '../base.html' %}
+{% load static  %}
+{% load crispy_forms_tags  %}
+
+{% block content %}
+
+
+    <!--Grid column-->
+    <div style="text-align: center;" >
+  
+        <!-- Card -->
+        <div class="card gradient-card" >
+    
+            <div class="card-image"  style="background-image: url({{question.user.front.url}});background-size:800px 200px ;object-fit:cover;"> 
+    
+              <!-- Content -->
+              <a href="#!">
+                <div  >
+                  <div class="first-content align-self-center p-3">
+                    <h3 class="card-title">Question Asked By {{question.user.username}}</h3>
+                    <p class="lead mb-0">Question) {{question.ques_text}} ?</p>
+                  </div>
+                </div>
+              </a>
+    
+            </div>
+    
+
+            <form action="{% url 'each_question' question.id  %}" method="POST" >
+              {% csrf_token %}
+
+              <div class="checkbox">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="option_no"
+                    value="option1"
+                    {% if question.choice1_bool == True %} checked {% endif %}
+                  />
+                    {{question.choice1_text}}
+                  </label>
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="option_no"
+                    value="option2"
+                    {% if question.choice2_bool == True %} checked {% endif %}
+                  />
+                    {{question.choice2_text}}
+                  </label>
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="option_no"
+                    value="option3"
+                    {% if question.choice3_bool == True %} checked {% endif %}
+                  />
+                    {{question.choice3_text}}
+                  </label>
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    name="option_no"
+                    value="option4"
+                    {% if question.choice4_bool == True %} checked {% endif %}
+                  />
+                    {{question.choice4_text}}
+                  </label>
+              </div>
+
+
+              <input type="submit" value="Submit" class="btn btn-primary block" />
+            </form>
+
+  
+    
+        </div>
+        <!-- Card -->
+  
+        
+      </div>
+    
+{% endblock %}
+    
