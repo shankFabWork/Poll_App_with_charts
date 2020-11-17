@@ -83,6 +83,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 python manage.py createsuperuser
+#u have to make superuser in heroku atleast one otherwise it will not work
 
 
 
